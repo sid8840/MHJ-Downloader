@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# PyInstaller generated files
+build/
+dist/
+
+# Runtime application data
+data/settings.json
+data/mhj_history.csv
+data/temp/
+data/*.tmp
+
+# Application logs
+logs/
+
+# Installer output
+installer/
+
+# Local development / editor files
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Secrets / environment files
+.env
+*.env
+
+# Temporary files
+*.tmp
+*.temp
+
+# Local development backups
+backup/backup/
+backup/
