@@ -1,5 +1,5 @@
 #define MyAppName "महाराष्ट्राची हास्य जत्रा"
-#define MyAppVersion "2.2.12"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "Siddhesh Dinde"
 #define MyAppExeName "महाराष्ट्राची हास्य जत्रा.exe"
 
@@ -14,7 +14,7 @@ DefaultDirName={autopf}\MHJ Downloader
 DefaultGroupName=MHJ Downloader
 
 OutputDir=installer
-OutputBaseFilename=MHJ-Downloader-v2.2.12-Setup
+OutputBaseFilename=MHJ-Downloader-v1.0-Setup
 
 SetupIconFile=mhj.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
@@ -31,9 +31,9 @@ ArchitecturesInstallIn64BitMode=x64compatible
 
 DisableProgramGroupPage=yes
 
-VersionInfoVersion=2.2.12.0
+VersionInfoVersion=1.0.0.0
 VersionInfoProductName=MHJ Downloader
-VersionInfoProductVersion=2.2.12
+VersionInfoProductVersion=1.0
 VersionInfoDescription=महाराष्ट्राची हास्य जत्रा
 VersionInfoCompany={#MyAppPublisher}
 

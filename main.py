@@ -31,7 +31,7 @@ from yt_dlp.networking.impersonate import ImpersonateTarget
 
 APP_NAME = "महाराष्ट्राची हास्य जत्रा"
 APP_INTERNAL_NAME = "MHJ Downloader"
-APP_VERSION = "2.2.12"
+APP_VERSION = "1.0"
 SHOW_ID = "1700000221"
 DEFAULT_MANUAL_URL = "https://www.sonyliv.com/shows/maharashtrachi-hasya-jatra-hasnya-cha-common-reason-1700000221/episodes/801-900"
 
