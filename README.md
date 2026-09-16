@@ -4,27 +4,31 @@ A Windows desktop downloader for **SonyLIV's महाराष्ट्रा�
 
 The application is designed to be simple to operate, with a parent-friendly interface focused on downloading episodes and maintaining an existing local collection.
 
-## v1.0
+---
 
-This is the first official release of the application.
+## Latest Release — v1.0.1
+
+**v1.0.1** is the latest official release.
 
 ### Download
 
-Download the latest installer from the [GitHub Releases](../../releases) page.
+Download the latest Windows installer from the [GitHub Releases](../../releases/latest) page.
 
 The installer is intended for:
 
 - Windows 10 / Windows 11
-- 64-bit systems
+- 64-bit (x64) systems
 
-The installed application does not require Python or manual Python package installation.
+The installed application does **not** require Python or manual Python package installation.
+
+---
 
 ## Installation
 
 Run:
 
 ```text
-MHJ-Downloader-v1.0-Setup.exe
+MHJ-Downloader-v1.0.1-Setup.exe
 ```
 
 The application is installed under:
@@ -39,7 +43,9 @@ Application data and user settings are stored separately under:
 C:\ProgramData\MHJ Downloader\
 ```
 
-This keeps the installed application separate from user-generated data.
+This keeps the installed application separate from user-generated application data.
+
+---
 
 ## Main Features
 
@@ -61,11 +67,15 @@ This keeps the installed application separate from user-generated data.
 - Persistent settings
 - Windows x64 installer
 
+FFmpeg and FFprobe are bundled with the application. No separate FFmpeg installation or PATH configuration is required.
+
+---
+
 ## Download Modes
 
 ### New Episodes
 
-New Episodes mode is designed for maintaining an existing collection.
+New Episodes mode is designed for maintaining an existing local collection.
 
 The application checks the local download folder and compares the local collection with the episodes available from SonyLIV.
 
@@ -74,9 +84,31 @@ It can detect:
 - New episodes
 - Missing episodes inside an existing collection
 
-If the destination folder is empty, the application downloads only the latest 10 episodes.
+For example, if the local collection contains:
 
-If the collection already exists, the application reconciles the available SonyLIV episode list with the local files instead of simply assuming that only the newest episodes are missing.
+```text
+798 - 839
+```
+
+and SonyLIV has episodes available through:
+
+```text
+851
+```
+
+the application can identify:
+
+```text
+840 - 851
+```
+
+rather than assuming that only the newest 10 episodes are missing.
+
+### Empty Download Folder
+
+When New Episodes mode is selected and the destination folder is empty, the application downloads only the latest 10 episodes.
+
+To process more episodes, select a specific episode, an episode range, or another appropriate mode in Settings.
 
 ### Specific Episode
 
@@ -86,7 +118,7 @@ Downloads a selected episode number.
 
 Downloads a specified range of episodes.
 
-For example:
+Example:
 
 ```text
 824 - 850
@@ -94,13 +126,15 @@ For example:
 
 ### Entire Library
 
-Checks the available SonyLIV catalogue and processes the library according to the local collection and download history.
+Checks the available SonyLIV catalogue and processes the library according to the local collection and download state.
+
+---
 
 ## Local Collection Handling
 
 The local files are treated as the primary authority for determining whether an episode is already present.
 
-The application maintains download history separately, allowing it to repair history when an episode exists on disk but is missing from the history record.
+Download history is maintained separately, allowing the application to track download state and reconcile cases where the on-disk collection and history differ.
 
 The basic reconciliation logic is:
 
@@ -113,20 +147,36 @@ Skip
 
 Episode missing on disk
         ↓
-Check download state/history
+Determine download state
         ↓
 Download or resume as appropriate
 ```
 
 This prevents already downloaded episodes from being unnecessarily downloaded again.
 
+---
+
 ## Resumable Downloads
 
-Downloads use temporary working data so that an interrupted download can be continued rather than restarted from the beginning.
+Downloads use private temporary working data so that interrupted downloads can be continued rather than restarted from the beginning.
 
-Temporary download data is kept outside the main download folder.
+Temporary fragments and intermediate files are kept outside the main download folder.
 
-When a download is successfully finalized, only the completed MP4 is placed in the selected destination folder.
+When a download is successfully finalized:
+
+```text
+Temporary working data
+        ↓
+Media processing / finalization
+        ↓
+Completed MP4
+        ↓
+Selected download folder
+```
+
+Only the completed MP4 is placed in the destination folder.
+
+---
 
 ## Premium Episodes
 
@@ -134,7 +184,9 @@ Some SonyLIV episodes may require authentication or premium access.
 
 When yt-dlp reports that authentication is required, the application identifies the episode as premium content and skips it rather than repeatedly retrying the download.
 
-If the remaining required episodes are successfully downloaded, premium episodes do not cause the entire download operation to be reported as a failure.
+Premium episodes therefore do not unnecessarily block processing of other episodes.
+
+---
 
 ## FFmpeg
 
@@ -143,6 +195,8 @@ FFmpeg and FFprobe are bundled with the application.
 No separate FFmpeg installation or PATH configuration is required for the installed application.
 
 They are used for processing and finalizing downloaded media.
+
+---
 
 ## Settings
 
@@ -162,6 +216,8 @@ Settings are stored under:
 C:\ProgramData\MHJ Downloader\data\
 ```
 
+---
+
 ## Activity Logs
 
 Application activity logs are stored under:
@@ -172,39 +228,96 @@ C:\ProgramData\MHJ Downloader\logs\
 
 A new activity log is created for each application session.
 
-These logs are useful when diagnosing SonyLIV connectivity, discovery, download, or processing problems.
+These logs are useful when diagnosing:
 
-## Troubleshooting
+- SonyLIV connectivity
+- Episode discovery
+- Download operations
+- Media processing
+- Errors and interrupted operations
 
-If a download or discovery operation behaves unexpectedly, provide the relevant session log from:
+When reporting a problem, provide the relevant session log from the logs directory.
+
+---
+
+## Uninstallation
+
+The uninstaller provides a choice regarding application data.
+
+By default, uninstalling the application does **not** remove:
 
 ```text
-C:\ProgramData\MHJ Downloader\logs\
+C:\ProgramData\MHJ Downloader\
 ```
 
-The log contains information about the application's discovery, download, processing, and error states.
+This preserves settings, download history, catalogue data, and other application-owned data.
+
+The uninstaller also provides an option to remove the application's stored data and settings.
+
+This allows the user to choose between:
+
+```text
+Uninstall application
++
+Keep application data
+```
+
+or:
+
+```text
+Uninstall application
++
+Remove application data and settings
+```
+
+Selecting the data-removal option removes the application-owned data stored under the MHJ Downloader ProgramData directory.
+
+---
 
 ## Project Structure
 
-The repository contains the application source, Qt Designer UI files, PyInstaller configuration, installer configuration, application resources, and the catalogue used by the application.
+The repository contains:
 
-Generated build output, runtime data, logs, temporary download files, and local development backups are intentionally excluded from the Git repository.
+- Application source code
+- Qt Designer UI files
+- PyInstaller configuration
+- Installer configuration
+- Application resources
+- SonyLIV catalogue data
+
+Generated build output, runtime data, logs, temporary download files, installer output, and local development backups are intentionally excluded from the Git repository.
+
+---
 
 ## Versioning
 
-The project uses Git tags and GitHub Releases for application versions.
+The project uses Git tags and GitHub Releases for official application versions.
 
-The official baseline is:
+Current release:
+
+```text
+v1.0.1
+```
+
+Release history:
 
 ```text
 v1.0
+    First official release
+
+v1.0.1
+    Installer and application maintenance release
 ```
 
 Future versions will be published as new GitHub Releases with their corresponding Windows installer.
 
+---
+
 ## License
 
 License information will be added when the project is formally licensed.
+
+---
 
 ## Disclaimer
 
